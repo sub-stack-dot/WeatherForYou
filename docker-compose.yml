@@ -1,0 +1,34 @@
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: weather-mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: weather-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/weatherdb
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend/weatherapp
+    container_name: weather-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/weatherapp:/app
+    environment:
+    - CHOKIDAR_USEPOLLING=true
+    - HOST=0.0.0.0
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
