@@ -3,7 +3,7 @@ services:
     image: mongo:6.0
     container_name: weather-mongo
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - mongo-data:/data/db
 
@@ -21,7 +21,7 @@ services:
     build: ./frontend/weatherapp
     container_name: weather-frontend
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - backend
 
