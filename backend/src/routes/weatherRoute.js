@@ -1,5 +1,6 @@
-import express from "express";
-import fetch from "node-fetch";
+const express = require("express");
+const fetch = require("node-fetch");
+
 
 const router = express.Router();
 
@@ -26,7 +27,7 @@ router.get("/current/:city", async (req, res) => {
   }
 });
 
-// ✅ 5-day forecast
+//  5-day forecast
 router.get("/forecast/:city", async (req, res) => {
   const { city } = req.params;
   try {
@@ -45,4 +46,5 @@ router.get("/forecast/:city", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
+

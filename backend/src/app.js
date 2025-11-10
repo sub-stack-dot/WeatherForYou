@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/authRoutes");
-const weatherRoutes = require("./routes/weatherRoutes");
+const weatherRoute = require("./routes/weatherRoute");
 
 dotenv.config();
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/weather", weatherRoutes);
+app.use("/api/weather", weatherRoute);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
