@@ -28,7 +28,7 @@ pipeline {
         stage('Build Frontend Image') {
             steps {
                 script {
-                    docker.build("${FRONTEND_IMAGE}", "./frontend")
+                    docker.build("${FRONTEND_IMAGE}", "./frontend/weatherapp")
                 }
             }
         }
