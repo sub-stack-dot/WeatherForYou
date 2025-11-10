@@ -4,7 +4,8 @@ pipeline {
     environment {
         GITHUB_CREDENTIALS = 'github-credentials'
         DOCKERHUB_CREDENTIALS = 'dockerhub-credentials'
-        DOCKER_IMAGE = 'subhanisenevirathne/weatherforyou-backend:latest'
+        BACKEND_IMAGE = 'subhanisenevirathne/weatherforyou-backend:latest'
+        FRONTEND_IMAGE = 'subhanisenevirathne/weatherforyou-frontend:latest'
     }
 
     stages {
@@ -16,19 +17,28 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Backend Image') {
             steps {
                 script {
-                    docker.build("${DOCKER_IMAGE}")
+                    docker.build("${BACKEND_IMAGE}", "./backend")
                 }
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Build Frontend Image') {
+            steps {
+                script {
+                    docker.build("${FRONTEND_IMAGE}", "./frontend")
+                }
+            }
+        }
+
+        stage('Push Images to Docker Hub') {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKERHUB_CREDENTIALS}") {
-                        docker.image("${DOCKER_IMAGE}").push()
+                        docker.image("${BACKEND_IMAGE}").push()
+                        docker.image("${FRONTEND_IMAGE}").push()
                     }
                 }
             }
