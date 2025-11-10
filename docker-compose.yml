@@ -1,11 +1,19 @@
+version: "3.8"
+
 services:
   mongo:
     image: mongo:6.0
     container_name: weather-mongo
     ports:
-      - "27018:27017"
+      - "27018:27017"          # host:container
     volumes:
       - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   backend:
     build: ./backend
@@ -14,16 +22,28 @@ services:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/weatherdb
+      - JWT_SECRET=12345  # <-- change this!
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
 
   frontend:
     build: ./frontend/weatherapp
     container_name: weather-frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
+   
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   mongo-data:
