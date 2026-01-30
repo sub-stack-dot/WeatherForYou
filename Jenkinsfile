@@ -19,28 +19,22 @@ pipeline {
 
         stage('Build Backend Image') {
             steps {
-                script {
-                    docker.build("${BACKEND_IMAGE}", "./backend")
-                }
+                sh "docker build -t ${BACKEND_IMAGE} ./backend"
             }
         }
 
         stage('Build Frontend Image') {
-    steps {
-        script {
-            docker.build("${FRONTEND_IMAGE}", "./frontend/weatherapp")
+            steps {
+                sh "docker build -t ${FRONTEND_IMAGE} ./frontend/weatherapp"
+            }
         }
-    }
-}
-
 
         stage('Push Images to Docker Hub') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKERHUB_CREDENTIALS}") {
-                        docker.image("${BACKEND_IMAGE}").push()
-                        docker.image("${FRONTEND_IMAGE}").push()
-                    }
+                withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
+                    sh "docker push ${BACKEND_IMAGE}"
+                    sh "docker push ${FRONTEND_IMAGE}"
                 }
             }
         }
