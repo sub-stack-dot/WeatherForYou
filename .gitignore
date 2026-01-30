@@ -1,1 +1,17 @@
 node_modules/
+
+# SSH Keys
+my-key
+my-key.pub
+
+# Terraform
+infra/.terraform/
+infra/.terraform.lock.hcl
+infra/terraform.tfstate
+infra/terraform.tfstate.backup
+infra/tfplan
+*.tfstate*
+
+# Environment variables
+.env.local
+.env.*.local
