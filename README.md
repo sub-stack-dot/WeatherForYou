@@ -1,5 +1,7 @@
 # WeatherForYou
 
+A full-stack weather application with automated CI/CD deployment.
+
 ## Project Structure
 - **backend**: Node.js/Express API
 - **frontend**: React Application
