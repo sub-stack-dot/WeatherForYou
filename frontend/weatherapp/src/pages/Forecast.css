@@ -1,0 +1,54 @@
+.forecast-container {
+  width: 350px;
+  margin: 50px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.forecast-title {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.forecast-container input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.forecast-container button {
+  width: 95%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.forecast-container button:hover {
+  background: #0056b3;
+}
+
+.forecast-error {
+  color: red;
+  margin-top: 10px;
+}
+
+.forecast-list {
+  margin-top: 20px;
+}
+
+.forecast-card {
+  background: #f9f9f9;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+}
