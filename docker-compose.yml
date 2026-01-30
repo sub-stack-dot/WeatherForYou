@@ -22,7 +22,7 @@ services:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/weatherdb
-      - JWT_SECRET=12345
+      - JWT_SECRET=your-secret-key-change-this
     depends_on:
       mongo:
         condition: service_healthy
@@ -39,7 +39,6 @@ services:
     container_name: weather-frontend
     ports:
       - "80:80"
-
     depends_on:
       backend:
         condition: service_healthy
@@ -54,19 +53,14 @@ services:
     volumes:
       - jenkins_data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JAVA_OPTS=-Xmx512m
     dns:
       - 8.8.8.8
     restart: unless-stopped
-      environment:
-        - JAVA_OPTS=-Xmx512m
-      depends_on:
-        backend:
-          condition: service_healthy
-      environment:
-        - JAVA_OPTS=-Xmx512m
-      depends_on:
-        backend:
-          condition: service_healthy
+    depends_on:
+      backend:
+        condition: service_healthy
 
 volumes:
   mongo-data:
