@@ -44,8 +44,14 @@ pipeline {
                 sh """
                     ssh -o StrictHostKeyChecking=no -i /home/jenkins/.ssh/id_rsa ubuntu@13.202.40.167 << 'EOF'
 cd /home/ubuntu
+if [ ! -d "WeatherForYou" ]; then
+  git clone https://github.com/sub-stack-dot/WeatherForYou.git
+else
+  cd WeatherForYou && git pull origin main && cd ..
+fi
+cd WeatherForYou
 docker-compose pull
-docker-compose up -d
+docker-compose up -d --remove-orphans
 EOF
                 """
             }
