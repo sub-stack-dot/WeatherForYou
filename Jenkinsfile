@@ -41,7 +41,7 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sh 'ssh -o StrictHostKeyChecking=no -i /home/jenkins/.ssh/id_rsa ubuntu@13.202.40.167 "cd /home/ubuntu && docker-compose pull && docker-compose up -d"'
+                sh 'ssh -o StrictHostKeyChecking=no -i /home/jenkins/.ssh/id_rsa ubuntu@13.202.40.167 \\"cd /home/ubuntu && docker-compose pull && docker-compose up -d\\"'
             }
         }
     }
