@@ -1,0 +1,78 @@
+.features-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 3rem 2rem;
+}
+
+.features-hero {
+  text-align: center;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+.features-hero h1 {
+  font-size: 2.8rem;
+  margin: 0 0 0.5rem;
+}
+
+.features-hero p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.features-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.feature-tile {
+  background: white;
+  padding: 2.2rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #333;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-tile:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+.tile-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.feature-tile h3 {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.feature-tile p {
+  margin: 0;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .features-page {
+    padding: 2rem 1.5rem;
+  }
+
+  .features-hero h1 {
+    font-size: 2.2rem;
+  }
+}

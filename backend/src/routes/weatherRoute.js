@@ -66,5 +66,18 @@ router.post("/save", authMiddleware, async (req, res) => {
   }
 });
 
+// Get search history
+router.get("/history", authMiddleware, async (req, res) => {
+  try {
+    const history = await SearchHistory.find({ userId: req.user.id })
+      .sort({ searchDate: -1 })
+      .limit(20);
+    res.json(history);
+  } catch (error) {
+    console.error("Error fetching history:", error);
+    res.status(500).json({ message: "Error fetching search history" });
+  }
+});
+
 module.exports = router;
 

@@ -13,7 +13,8 @@ function Forecast() {
       const res = await fetch(`${API_URL}/api/weather/forecast/${city}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "City not found");
-      setForecast(data.list.slice(0, 5)); // first 5 days
+      const daily = data.list.filter((_, index) => index % 8 === 0).slice(0, 7);
+      setForecast(daily);
       setError("");
     } catch (err) {
       setError(err.message);
@@ -23,7 +24,7 @@ function Forecast() {
 
   return (
     <div className="forecast-container">
-      <h2 className="forecast-title">5-Day Forecast</h2>
+      <h2 className="forecast-title">7-Day Forecast</h2>
       <input
         type="text"
         placeholder="Enter City Name"

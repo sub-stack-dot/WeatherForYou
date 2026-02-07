@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Register.css"; // Import CSS
 
 function Register() {
@@ -7,6 +8,7 @@ function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -17,24 +19,19 @@ function Register() {
     setMessage("");
 
     try {
-      const res = await fetch(`${API_URL}/api/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+      await axios.post(`${API_URL}/api/auth/register`, form);
+      const loginRes = await axios.post(`${API_URL}/api/auth/login`, {
+        email: form.email,
+        password: form.password,
       });
-
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        // Show backend error message
-        setMessage(data.message || "Something went wrong");
-      } else {
-        setMessage(data.message || "Registered successfully!");
-        setForm({ name: "", email: "", password: "" }); // reset form
-      }
+      localStorage.setItem("token", loginRes.data.token);
+      localStorage.setItem("user", JSON.stringify(loginRes.data.user));
+      setMessage("Registered successfully! Redirecting...");
+      setForm({ name: "", email: "", password: "" });
+      setTimeout(() => navigate("/features"), 700);
     } catch (err) {
-      setMessage(err);
+      const errorMsg = err.response?.data?.message || "Something went wrong";
+      setMessage(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -45,30 +42,39 @@ function Register() {
       <h2 className="auth-title">Register for Weather For You !</h2>
 
       <form className="auth-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
+        <div className="input-group">
+          <i className="fas fa-user"></i>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <i className="fas fa-envelope"></i>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <i className="fas fa-lock"></i>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <button type="submit" disabled={loading}>
           {loading ? "Registering..." : "Register"}
         </button>

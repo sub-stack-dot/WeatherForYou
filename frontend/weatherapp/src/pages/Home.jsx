@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
 
@@ -30,7 +30,7 @@ function Home() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       setMessage("Login successful! Redirecting...");
-      setTimeout(() => navigate("/dashboard"), 1000);
+      setTimeout(() => navigate("/features"), 700);
     } catch (err) {
       setMessage(err.response?.data?.message || "Login failed. Please try again.");
     } finally {
@@ -44,9 +44,15 @@ function Home() {
     setMessage("");
 
     try {
-      const res = await axios.post(`${API_URL}/api/auth/register`, registerForm);
-      setMessage("Registration successful! Please login.");
-      setActiveTab("login");
+      await axios.post(`${API_URL}/api/auth/register`, registerForm);
+      const loginRes = await axios.post(`${API_URL}/api/auth/login`, {
+        email: registerForm.email,
+        password: registerForm.password,
+      });
+      localStorage.setItem("token", loginRes.data.token);
+      localStorage.setItem("user", JSON.stringify(loginRes.data.user));
+      setMessage("Registration successful! Redirecting...");
+      setTimeout(() => navigate("/features"), 700);
       setRegisterForm({ name: "", email: "", password: "" });
     } catch (err) {
       setMessage(err.response?.data?.message || "Registration failed. Please try again.");
@@ -168,23 +174,6 @@ function Home() {
           )}
         </div>
 
-        <div className="features">
-          <div className="feature-card">
-            <i className="fas fa-thermometer-half"></i>
-            <h3>Real-Time Data</h3>
-            <p>Get accurate weather updates instantly</p>
-          </div>
-          <div className="feature-card">
-            <i className="fas fa-chart-line"></i>
-            <h3>Forecasts</h3>
-            <p>Plan ahead with 7-day forecasts</p>
-          </div>
-          <div className="feature-card">
-            <i className="fas fa-history"></i>
-            <h3>Search History</h3>
-            <p>Track your weather searches</p>
-          </div>
-        </div>
       </div>
     </div>
   );

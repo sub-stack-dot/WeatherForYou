@@ -32,8 +32,7 @@ function Navbar() {
         <Link to="/"><i className="fas fa-home"></i> Home</Link>
         {user && (
           <>
-            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i> Dashboard</Link>
-            <Link to="/forecast"><i className="fas fa-chart-line"></i> Forecast</Link>
+            <Link to="/features"><i className="fas fa-th-large"></i> Features</Link>
           </>
         )}
         <div className="profile-dropdown">
