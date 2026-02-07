@@ -42,7 +42,7 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sh """
-                    ssh -o StrictHostKeyChecking=no -i /home/jenkins/.ssh/id_rsa ubuntu@13.202.40.167 << 'EOF'
+                    ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/id_rsa ubuntu@13.202.40.167 << 'EOF'
 cd /home/ubuntu
 if [ ! -d "WeatherForYou" ]; then
   git clone https://github.com/sub-stack-dot/WeatherForYou.git
