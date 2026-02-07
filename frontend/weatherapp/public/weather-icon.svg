@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Weather icon">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD166" />
+      <stop offset="1" stop-color="#EF476F" />
+    </linearGradient>
+  </defs>
+  <circle cx="24" cy="24" r="12" fill="url(#g)" />
+  <path d="M42 40H22a10 10 0 1 1 1-20 12 12 0 0 1 23 4 8 8 0 0 1 -4 16z" fill="#ffffff" />
+  <path d="M26 48c3 2 9 2 12 0" stroke="#5DADEC" stroke-width="3" stroke-linecap="round" fill="none" />
+</svg>
