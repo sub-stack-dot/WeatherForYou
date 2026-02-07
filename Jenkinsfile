@@ -25,7 +25,7 @@ pipeline {
 
         stage('Build Frontend Image') {
             steps {
-                sh "docker build -t ${FRONTEND_IMAGE} ./frontend/weatherapp"
+                sh "docker build --no-cache -t ${FRONTEND_IMAGE} ./frontend/weatherapp"
             }
         }
 
