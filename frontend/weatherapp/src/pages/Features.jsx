@@ -6,7 +6,7 @@ function Features() {
   return (
     <div className="features-page">
       <div className="features-hero">
-        <h1>Welcome Back!</h1>
+        <h1>Welcome Back Today!</h1>
         <p>Select a feature to continue.</p>
       </div>
 
