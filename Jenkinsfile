@@ -50,8 +50,8 @@ else
   cd WeatherForYou && git pull origin main && cd ..
 fi
 cd WeatherForYou
-docker-compose pull
-docker-compose up -d --remove-orphans
+docker compose pull
+docker compose up -d --force-recreate --remove-orphans
 EOF
                 """
             }
