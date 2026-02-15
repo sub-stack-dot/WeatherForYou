@@ -93,7 +93,7 @@ function Home() {
               <div className="form-icon">
                 <i className="fas fa-cloud-sun"></i>
               </div>
-              <h2>Welcome Back!</h2>
+              <h2> Subhani</h2>
               <div className="input-group">
                 <i className="fas fa-envelope"></i>
                 <input
