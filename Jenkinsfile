@@ -25,7 +25,7 @@ pipeline {
 
         stage('Build Frontend Image') {
             steps {
-                sh "docker build --no-cache -t ${FRONTEND_IMAGE} ./frontend/weatherapp"
+                sh "docker build -t ${FRONTEND_IMAGE} ./frontend/weatherapp"
             }
         }
 
@@ -50,8 +50,8 @@ else
   cd WeatherForYou && git pull origin main && cd ..
 fi
 cd WeatherForYou
-docker compose pull
-docker compose up -d --force-recreate --remove-orphans
+docker compose pull backend frontend
+docker compose up -d --no-deps backend frontend
 EOF
                 """
             }
