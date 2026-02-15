@@ -23,7 +23,7 @@ function Login() {
 
       setMessage("Login successful! Redirecting...");
 
-      // Save token and user info.
+      // Save token and user info..
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 

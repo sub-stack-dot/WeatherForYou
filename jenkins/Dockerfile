@@ -1,7 +1,10 @@
 FROM jenkins/jenkins:lts
 USER root
-RUN apt-get update && apt-get install -y docker.io
-RUN apt-get install -y docker-compose curl git
-# Add jenkins user to docker group so it can run docker commands
+
+ARG DOCKER_GID=999
+RUN apt-get update && apt-get install -y docker.io docker-compose curl git
+# Match host docker.sock group id so the jenkins user can access it.
+RUN groupadd -g ${DOCKER_GID} docker || groupmod -g ${DOCKER_GID} docker
 RUN usermod -aG docker jenkins
+
 USER jenkins
